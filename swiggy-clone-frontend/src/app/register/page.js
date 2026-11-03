@@ -15,7 +15,8 @@ export default function RegisterPage() {
     email: '',
     phone: '',
     password: '',
-    confirmPassword: ''
+    confirmPassword: '',
+    role: 'user'
   });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
@@ -57,10 +58,11 @@ export default function RegisterPage() {
         name: formData.name.trim(),
         email: formData.email.trim(),
         phone: formData.phone.trim(),
-        password: formData.password
+        password: formData.password,
+        role: formData.role
       });
 
-      toast.success('Registration successful! Please sign in.');
+      toast.success(`Registered as ${formData.role.toUpperCase()}! Please sign in.`);
       router.push('/login');
     } catch (err) {
       const message =
@@ -146,6 +148,22 @@ export default function RegisterPage() {
                 className="w-full pl-9 pr-3 py-2.5 text-sm bg-gray-50 border border-gray-200 rounded-lg focus:bg-white focus:outline-none focus:border-orange-500 transition"
               />
             </div>
+          </div>
+
+          <div>
+            <label className="block text-xs font-semibold text-gray-700 uppercase mb-1">
+              Account Role *
+            </label>
+            <select
+              name="role"
+              value={formData.role}
+              onChange={handleChange}
+              className="w-full px-3 py-2.5 text-sm bg-gray-50 border border-gray-200 rounded-lg focus:bg-white focus:outline-none focus:border-orange-500 transition font-medium"
+            >
+              <option value="user">Customer (Food Ordering)</option>
+              <option value="owner">Restaurant Owner (Partner Portal)</option>
+              <option value="admin">Platform Administrator</option>
+            </select>
           </div>
 
           <div>

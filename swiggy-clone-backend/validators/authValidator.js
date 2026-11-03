@@ -16,7 +16,8 @@ const registerSchema = Joi.object({
   phone: Joi.string().trim().pattern(/^[0-9+ -]{10,15}$/).required().messages({
     'string.pattern.base': 'Please provide a valid phone number (10-15 digits)',
     'any.required': 'Phone number is required'
-  })
+  }),
+  role: Joi.string().valid('user', 'owner', 'admin').default('user')
 });
 
 const loginSchema = Joi.object({
@@ -26,7 +27,8 @@ const loginSchema = Joi.object({
   }),
   password: Joi.string().required().messages({
     'any.required': 'Password is required'
-  })
+  }),
+  role: Joi.string().valid('user', 'owner', 'admin').optional()
 });
 
 module.exports = {
